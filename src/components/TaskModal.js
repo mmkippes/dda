@@ -30,7 +30,7 @@ const TaskModal = ({ visible, onClose, onAdd }) => {
                     onChangeText={(text) => setTitle(text)}
                 />
                 <TextInput
-                    style={styles.descriptionInput}
+                    style={styles.input}
                     placeholder="Descripción"
                     value={description}
                     onChangeText={(text) => setDescription(text)}
@@ -68,16 +68,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 8,
         backgroundColor: 'white',
     },
-    descriptionInput: {
-        width: 250,
-        borderColor: 'black',
-        borderWidth: 1,
-        marginBottom: 16,
-        paddingHorizontal: 8,
-        backgroundColor: 'white',
-        borderBottomWidth: 1,
-    },
-
 });
 
 export default TaskModal;
