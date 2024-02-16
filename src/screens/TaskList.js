@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, Button, StyleSheet, ScrollView } from 'react-native';
-import TaskModal from './TaskModal';
+import TaskModal from '../components/TaskModal';
 
-const TaskList = ({ switchScreen }) => {
+const TaskList = ({ navigation }) => {
     const [tasks, setTasks] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
 
@@ -19,7 +19,6 @@ const TaskList = ({ switchScreen }) => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.heading}>Lista de Tareas</Text>
             <ScrollView style={styles.taskList}>
                 {tasks.map((task, index) => (
                     <View style={styles.taskContainer} key={index}>
@@ -35,7 +34,7 @@ const TaskList = ({ switchScreen }) => {
             </ScrollView>
             <Button title="Agregar Tarea" onPress={() => setModalVisible(true)} />
             <TaskModal visible={modalVisible} onClose={() => setModalVisible(false)} onAdd={addTask} />
-            <Button title="Ir a Lista de Compras" onPress={() => switchScreen('ShoppingList')} />
+            <Button title="Ir a Lista de Compras" onPress={() => navigation.navigate('ShoppingList')} />
         </View>
     );
 };
@@ -45,10 +44,6 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 16,
         paddingTop: 40,
-    },
-    heading: {
-        fontSize: 24,
-        marginBottom: 16,
     },
     taskContainer: {
         borderWidth: 1,

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Button, FlatList, StyleSheet, TextInput } from 'react-native';
 
-const ShoppingList = ({ switchScreen }) => {
+const ShoppingList = () => {
     const [items, setItems] = useState([]);
     const [newItem, setNewItem] = useState('');
 
@@ -14,7 +14,6 @@ const ShoppingList = ({ switchScreen }) => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.heading}>Lista de Compras</Text>
             <FlatList
                 data={items}
                 keyExtractor={(item, index) => index.toString()}
@@ -27,7 +26,6 @@ const ShoppingList = ({ switchScreen }) => {
                 onChangeText={(text) => setNewItem(text)}
             />
             <Button title="Agregar a la Lista" onPress={addItemToList} />
-            <Button title="Volver a la Lista de Tareas" onPress={() => switchScreen('TaskList')} />
         </View>
     );
 };
@@ -38,10 +36,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 16,
-    },
-    heading: {
-        fontSize: 24,
-        marginBottom: 16,
     },
     listItem: {
         fontSize: 16,
