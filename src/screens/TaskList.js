@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import { View, Text, Button, StyleSheet, ScrollView } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { addTask, deleteTask } from '../slices/TaskSlice';
 import TaskModal from '../components/TaskModal';
 
-const TaskList = ({ navigation }) => {
-    const [tasks, setTasks] = useState([]);
+const TaskList = () => {
+    const tasks = useSelector((state) => state.tasks);
+    const dispatch = useDispatch();
     const [modalVisible, setModalVisible] = useState(false);
 
-    const addTask = (task) => {
-        setTasks([...tasks, task]);
+    const addTaskHandler = (task) => {
+        dispatch(addTask(task));
         setModalVisible(false);
     };
 
-    const deleteTask = (index) => {
-        const updatedTasks = [...tasks];
-        updatedTasks.splice(index, 1);
-        setTasks(updatedTasks);
+    const deleteTaskHandler = (index) => {
+        dispatch(deleteTask(index));
     };
 
     return (
@@ -28,12 +29,12 @@ const TaskList = ({ navigation }) => {
                         <Text>{task.description}</Text>
                         <Text style={styles.boldText}>Prioridad:</Text>
                         <Text>{task.priority}</Text>
-                        <Button title="Eliminar" onPress={() => deleteTask(index)} />
+                        <Button title="Eliminar" onPress={() => deleteTaskHandler(index)} />
                     </View>
                 ))}
             </ScrollView>
             <Button title="Agregar Tarea" onPress={() => setModalVisible(true)} />
-            <TaskModal visible={modalVisible} onClose={() => setModalVisible(false)} onAdd={addTask} />
+            <TaskModal visible={modalVisible} onClose={() => setModalVisible(false)} onAdd={addTaskHandler} />
         </View>
     );
 };

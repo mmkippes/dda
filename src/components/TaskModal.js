@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Modal, Button, StyleSheet } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { addTask } from '../slices/TaskSlice';
 
-const TaskModal = ({ visible, onClose, onAdd }) => {
+const TaskModal = ({ visible, onClose }) => {
+    const dispatch = useDispatch();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [priority, setPriority] = useState('');
@@ -13,7 +16,8 @@ const TaskModal = ({ visible, onClose, onAdd }) => {
             priority,
         };
 
-        onAdd(newTask);
+        dispatch(addTask(newTask));
+        onClose();
         setTitle('');
         setDescription('');
         setPriority('');
