@@ -34,7 +34,6 @@ const TaskList = ({ navigation }) => {
             </ScrollView>
             <Button title="Agregar Tarea" onPress={() => setModalVisible(true)} />
             <TaskModal visible={modalVisible} onClose={() => setModalVisible(false)} onAdd={addTask} />
-            <Button title="Ir a Lista de Compras" onPress={() => navigation.navigate('ShoppingList')} />
         </View>
     );
 };
