@@ -5,6 +5,7 @@ import { enableScreens } from 'react-native-screens';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import TaskList from '../screens/TaskList';
 import ShoppingList from '../screens/ShoppingList';
+import CameraScreen from '../components/Camera';
 
 enableScreens();
 
@@ -24,6 +25,11 @@ const MainNavigator = () => {
                         name="ShoppingList"
                         component={ShoppingList}
                         options={{ title: 'Lista de Compras' }}
+                    />
+                    <Tab.Screen
+                        name="Camera"
+                        component={CameraScreen}
+                        options={{ title: 'Cámara' }}
                     />
                 </Tab.Navigator>
             </NavigationContainer>
