@@ -1,10 +1,10 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { Camera } from 'expo-camera';
-import { View, Button, Alert } from 'react-native';
+import { Camera, CameraType } from 'expo-camera';
+import React, { useState, useEffect } from 'react';
+import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const CameraScreen = () => {
+export default function App() {
+    const [type, setType] = useState(CameraType.back);
     const [hasPermission, setHasPermission] = useState(null);
-    const cameraRef = useRef(null);
 
     useEffect(() => {
         (async () => {
@@ -13,50 +13,62 @@ const CameraScreen = () => {
         })();
     }, []);
 
-    const takePicture = async () => {
-        if (!hasPermission) {
-            console.log('Los permisos de la cámara fueron rechazados, favor de revisar los mismos en la configuración de tu celular.');
-            return;
-        }
-        if (cameraRef.current) {
-            const { uri } = await cameraRef.current.takePictureAsync();
-            console.log('Foto tomada:', uri);
-        }
-    };
-
     if (hasPermission === null) {
         return <View />;
     }
-    if (hasPermission === false) {
+
+    if (!hasPermission) {
         return (
-            <View>
-                <Text>Se rechazaron los permisos de la cámara.</Text>
+            <View style={styles.container}>
+                <Text style={{ textAlign: 'center' }}>Necesitamos tu permiso para acceder a la cámara</Text>
+                <Button onPress={() => {
+                    Camera.requestCameraPermissionsAsync().then(({ status }) => {
+                        setHasPermission(status === 'granted');
+                    });
+                }} title="Conceder permiso" />
             </View>
         );
     }
 
+    function toggleCameraType() {
+        setType(current => (current === CameraType.back ? CameraType.front : CameraType.back));
+    }
+
     return (
-        <View style={{ flex: 1 }}>
-            <Camera style={{ flex: 1 }} ref={cameraRef}>
-                <View
-                    style={{
-                        flex: 1,
-                        backgroundColor: 'transparent',
-                        flexDirection: 'row',
-                    }}>
-                    <Button
-                        title="Tomar Foto"
-                        onPress={takePicture}
-                        style={{
-                            flex: 0.1,
-                            alignSelf: 'flex-end',
-                            alignItems: 'center',
-                        }}
-                    />
+        <View style={styles.container}>
+            <Camera style={styles.camera} type={type}>
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
+                        <Text style={styles.text}>Flip Camera</Text>
+                    </TouchableOpacity>
                 </View>
             </Camera>
         </View>
     );
-};
+}
 
-export default CameraScreen;
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+    },
+    camera: {
+        flex: 1,
+    },
+    buttonContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        backgroundColor: 'transparent',
+        margin: 64,
+    },
+    button: {
+        flex: 1,
+        alignSelf: 'flex-end',
+        alignItems: 'center',
+    },
+    text: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: 'white',
+    },
+});
