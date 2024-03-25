@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "309155083739",
+    "project_id": "mkippes-dda",
+    "storage_bucket": "mkippes-dda.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309155083739:android:5406ff38d282f77a9ae3fe",
+        "android_client_info": {
+          "package_name": "mkippes.dda"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmLMRLQxlYMW-TGauX1F4QLDtYVidHXjs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -3,6 +3,9 @@
     "name": "dda",
     "slug": "dda",
     "plugins": [
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
+      "@react-native-firebase/crashlytics",
       [
         "expo-camera",
         {
@@ -35,20 +38,30 @@
           "allowAlert": true,
           "allow": true
         }
-      }
+      },
+      "bundleIdentifier": "mkippes.dda"
     },
     "android": {
+      "googleServicesFile": "./android/app/google-services.json",
+      "package": "mkippes.dda",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
       "permissions": [
         "CAMERA",
-        "CAMERA_ROLL"
+        "CAMERA_ROLL",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
       ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "2e5cc3ed-0b6b-4b41-92fd-500dbf9b6888"
+      }
     }
   }
 }
